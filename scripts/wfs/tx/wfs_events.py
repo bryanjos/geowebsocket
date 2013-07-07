@@ -15,6 +15,7 @@ def sendData(hook, layer):
 
   body = {}
   body['event'] = hook
+  body['layer'] = layer.name
   body['features'] = features
   req = urllib2.Request(url, json.dumps(body), {'Content-Type': 'application/json'})
   handler = urllib2.urlopen(req)
@@ -46,11 +47,11 @@ def onPostUpdate(updated, props, req, context):
 
 @tx.preDelete
 def onPreDelete(deleted, req, context):
+  sendData('deleted', deleted)
   context['preDelete'] = True
 
 @tx.postDelete
 def onPostDelete(deleted, req, context):
-  sendData('deleted', deleted)
   context['postDelete'] = True
 
 @tx.preCommit
