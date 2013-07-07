@@ -13,14 +13,12 @@ def sendData(hook, layer):
     features.append(json.loads(writeJSON(feature)))
 
 
-  body = {}
+  body = dict()
   body['event'] = hook
   body['layer'] = layer.name
   body['features'] = features
   req = urllib2.Request(url, json.dumps(body), {'Content-Type': 'application/json'})
-  handler = urllib2.urlopen(req)
-  handler.read()
-  handler.close() 
+  urllib2.urlopen(req)
 
 @tx.before
 def onBefore(req, context):
