@@ -5,6 +5,9 @@
 *.war
 *.ear
 
+.gradle/
+build/
+
 *.log
 *.pyc
 logs
